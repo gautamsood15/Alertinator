@@ -75,7 +75,7 @@ def alert_parser():
 
     # os.remove("service_alert.txt")
 
-    return is_service_degradation, is_office_alert, alert_id
+    return is_office_alert, is_service_degradation, alert_id
 
 
 # Adding signature to alert info
@@ -128,7 +128,7 @@ def send_email(to_addresses, cc_addresses):
     message.To = to_addresses
     message.CC = cc_addresses
 
-    # alert_id, is_office_alert, is_service_degradation = alert_parser()
+    dummy_office_alert, dummy_service_degradation, alert_id = alert_parser()
 
     message.Subject = alert_id + " - M365 Service Health Notification"
     message.body = "Test body"
