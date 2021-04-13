@@ -116,6 +116,12 @@ def is_validated():
     return
 
 
+
+
+
+
+
+
 # Send email to the clients
 
 
@@ -129,16 +135,37 @@ def send_email(to_addresses, cc_addresses):
     message.CC = cc_addresses
 
     dummy_office_alert, dummy_service_degradation, alert_id = alert_parser()
-
     message.Subject = alert_id + " - M365 Service Health Notification"
-    message.body = "Test body"
+
+
+
+    with open('alert_info.txt') as alert_info:
+
+    	file_content = alert_info.read()
+    	print(file_content)
+
+
+
+    message.body = file_content
+
+
+
+
+
+
+
+
+
 
     message.Save()
     message.Send()
 
 
 # ------------------------  Code Execution -------------------------------------------------
+
+
 to_addresses, cc_addresses = project_selection()
+
 
 add_header()
 is_validated()
