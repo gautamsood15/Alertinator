@@ -96,21 +96,24 @@ def add_signature():
 
 def is_validated(office_alert, service_degradation):
 
+    valid = True
+
     if office_alert == False:
         os.remove("alert_info.txt")
         print("False Alert\n")
         print("It is NOT an O365 Alert")
+        valid = False
 
     elif service_degradation == False:
         os.remove("alert_info.txt")
         print("False Alert\n")
-
         print("Status is NOT Service Degradation")
+        valid = False
 
     else:
         print("Valid Alert")
 
-    return
+    return valid
 
 
 
@@ -122,11 +125,11 @@ def is_validated(office_alert, service_degradation):
 # Send email to the clients
 
 
-def send_email(to_addresses, cc_addresses, alert_id):
+def send_email(to_addresses, cc_addresses, alert_id, office_alert, service_degradation):
 
     outlook = client.Dispatch("Outlook.Application")
     message = outlook.CreateItem(0)
-    message.Display()
+    # message.Display()
 
     message.To = to_addresses
     message.CC = cc_addresses
@@ -142,9 +145,12 @@ def send_email(to_addresses, cc_addresses, alert_id):
     message.HTMLBody = file_content
 
 
+    if is_validated(office_alert, service_degradation) == True:
+        message.Save()
+        message.Send()
 
-    message.Save()
-    message.Send()
+    else:
+        print("No need to send alert ot client")
 
 
 # ------------------------  Code Execution -------------------------------------------------
@@ -156,10 +162,8 @@ add_header()
 
 office_alert, service_degradation, alert_id = alert_parser()
 
-is_validated(office_alert, service_degradation)
-
 add_signature()
 
-send_email(to_addresses, cc_addresses, alert_id)
+send_email(to_addresses, cc_addresses, alert_id, office_alert, service_degradation)
 
 # os.remove("alert_info.txt")

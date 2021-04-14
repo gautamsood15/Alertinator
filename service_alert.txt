@@ -18,7 +18,7 @@ Title: Users having multiple issue related to email flow, links within email mes
 and the Microsoft defender portal
 ID: M0223456
 Status
-investigation
+Service Degradation
 Details
 Title: Users having multiple issue related to email flow, links within email messages
 and the Microsoft Defender portal
