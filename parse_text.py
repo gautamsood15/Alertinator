@@ -33,7 +33,7 @@ def project_selection():
 def add_header():
 
     alert_info = open('alert_info.txt', 'a')
-    alert_info.write('<br/><h2 style="color:blue;text-align:center;">                                                Microsoft Service Degradation - Alert</h2><br/><br/><br/>')
+    alert_info.write('<br/><h2 style="color:blue;margin-left:400px;">Microsoft Service Degradation - Alert</h2><br/><br/><br/>')
     alert_info.close()
 
     return
@@ -68,7 +68,7 @@ def alert_parser():
 
             if 34 > i > 21:
                 with open('alert_info.txt', 'a') as alert_info:
-                    alert_info.write(line+'<br/><br/>')
+                    alert_info.write('&emsp;&emsp;'+line+'<br/><br/>')
 
     # delete service alert
 
@@ -84,11 +84,11 @@ def add_signature():
     with open('alert_info.txt', 'a') as alert_info:
 
         alert_info.write('<br/><br/>')
-        alert_info.write('Thanks and Regards,<br/>')
-        alert_info.write('Gautam Sood,<br/>')
-        alert_info.write('Messaging Team<br/>')
-        alert_info.write('Accenture Services Private Limited<br/>')
-        alert_info.write('Email: gautam.a.sood@accenture.com<br/>')
+        alert_info.write('<div><img src="https://www.crwflags.com/fotw/images/u/us$accnt.gif" align="left" width="180" height="80">')
+        alert_info.write('&ensp;Thanks and Regards,<br/>')
+        alert_info.write('&ensp;Gautam Sood,<br/>')
+        alert_info.write('&ensp;Messaging Team,<br/>')
+        alert_info.write('&ensp;Accenture Services Private Limited</div><br/>')
 
 
 #  validate for messaging team to send to client
@@ -138,7 +138,6 @@ def send_email(to_addresses, cc_addresses, alert_id):
     with open('alert_info.txt') as alert_info:
 
     	file_content = alert_info.read()
-    	print(file_content)
 
     message.HTMLBody = file_content
 
@@ -163,4 +162,4 @@ add_signature()
 
 send_email(to_addresses, cc_addresses, alert_id)
 
-os.remove("alert_info.txt")
+# os.remove("alert_info.txt")
