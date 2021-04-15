@@ -16,12 +16,12 @@ def project_selection():
 
             if i == 2:                                    
                 if line == 'To:	django.Messaging\n':                            # if the DL is of django projects
-                    to_addresses = 'gaasdasduty212122@gmail.com; aaaafff@hotmail.com'
-                    cc_addresses = 'abc@gmail.com'
+                    to_addresses = 'gauty22@gmail.com; gauty22@hotmail.com'
+                    cc_addresses = 'gauty22@gmail.com'
 
                 if line == 'To:	Unchained_O365\n':                                 # if the DL is of unchained projects
                     to_addresses = 'gasdas@ac.in; gasf424@hotmail.com'
-                    cc_addresses = 'sdfg1323@gmail.com'
+                    cc_addresses = 'gauty22@gmail.com'
 
                 else:
                     break

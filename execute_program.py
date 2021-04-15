@@ -1,23 +1,31 @@
 from download_alert import *
-from parse_text import *
+from send_alert import *
+import os
 
-infinite_loop = False
 
-while(infinite_loop):               #    execution loop for the code
-	
-	save_alert()
 
-	#-------------------------------------------------
+if __name__ == "__main__":
 
-	to_addresses, cc_addresses = project_selection()
+	infinite_loop = True
 
-	add_header()
+	while(infinite_loop):              #    execution loop for the code
+		
+		save_alert()
 
-	office_alert, service_degradation, alert_id = alert_parser()
+		#-------------------------------------------------
 
-	add_signature()
+		if os.path.exists("service_alert.txt"):
 
-	send_email(to_addresses, cc_addresses, alert_id, office_alert, service_degradation)
+			to_addresses, cc_addresses = project_selection()
 
-	os.remove("alert_info.txt")
+			add_header()
+
+			office_alert, service_degradation, alert_id = alert_parser()
+
+			add_signature()
+
+			send_email(to_addresses, cc_addresses, alert_id, office_alert, service_degradation)
+
+			os.remove("alert_info.txt")
+
 	
