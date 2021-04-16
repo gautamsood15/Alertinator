@@ -22,7 +22,7 @@ def get_inbox():
 		email_message = email.message_from_bytes(b)           
 		
 	
-		if email_message['subject'] == 'Fwd: This is a test Email':    # check  for alert email from all thge unread email
+		if email_message['subject'] == 'This is a test Email':    # check  for alert email from all thge unread email
 
 			#for header in ['from', 'date', 'to', 'subject']:              # extract subject, to, from, data from the unread mails	
 				#print("{}: {}".format(header,email_message[header]))
@@ -37,9 +37,6 @@ def get_inbox():
 				#elif part.get_content_type() == "text/html":              # get body of mails if mail is html type
 					#html_body = part.get_payload(decode=True)
 					#email_data['html_body'] = html_body.decode()       
-
-		else:
-			print("other mail")
 			
 		my_message.append(email_data)
 	return my_message
@@ -50,10 +47,18 @@ def get_inbox():
 
 def save_alert():               # To download the alert in a text file
 	
-	my_message = get_inbox()
-	
+	my_message = get_inbox()   
+	for x in my_message:         # selecting the mail with the required body
+		if x:                    
+			print(x['body']) 
+			with open("service_alert.txt", "w") as service_alert:                # writing the service alert to text file
+				service_alert.write(x['body'])
+		else:
+			print("No Message Body")
+
+
+
 
 # ------------------------  Code Execution -------------------------------------------------
 
 save_alert()
-
