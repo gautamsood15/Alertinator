@@ -24,10 +24,9 @@ def get_inbox():
 	
 		if email_message['subject'] == 'Fwd: This is a test Email':    # check  for alert email from all thge unread email
 
-			#for header in ['from', 'date', 'to', 'subject']:              # extract subject, to, from, data from the unread mails
-				#pass
+			#for header in ['from', 'date', 'to', 'subject']:              # extract subject, to, from, data from the unread mails	
 				#print("{}: {}".format(header,email_message[header]))
-				#email_data[header] = email_message[header]
+				#email_data[header] = email_message[header]            
 
 			for part in email_message.walk():                         # get the body of the mails
 				if part.get_content_type() == "text/plain":             # get body of mails if mail is text type
@@ -35,9 +34,9 @@ def get_inbox():
 					email_data['body'] = body.decode()
 
 
-				elif part.get_content_type() == "text/html":              # get body of mails if mail is html type
-					html_body = part.get_payload(decode=True)
-					email_data['html_body'] = html_body.decode()
+				#elif part.get_content_type() == "text/html":              # get body of mails if mail is html type
+					#html_body = part.get_payload(decode=True)
+					#email_data['html_body'] = html_body.decode()       
 
 		else:
 			print("other mail")
@@ -49,11 +48,12 @@ def get_inbox():
 
 
 
-def save_alert(my_message):
-	print("saving....")
+def save_alert():               # To download the alert in a text file
+	
+	my_message = get_inbox()
+	
 
 # ------------------------  Code Execution -------------------------------------------------
 
-my_inbox = get_inbox()
-save_alert(my_inbox)
+save_alert()
 
