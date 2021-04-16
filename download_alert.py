@@ -59,6 +59,6 @@ def save_alert():               # To download the alert in a text file
 
 
 
-# ------------------------  Code Execution -------------------------------------------------
 
-save_alert()
+
+

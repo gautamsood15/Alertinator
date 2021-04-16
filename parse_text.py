@@ -161,20 +161,3 @@ def send_email(to_addresses, cc_addresses, alert_id, office_alert, service_degra
 
     else:
         print("No need to send alert to client")
-
-
-# ------------------------  Code Execution -------------------------------------------------
-
-
-to_addresses, cc_addresses = project_selection()
-
-add_header()
-
-office_alert, service_degradation, alert_id = alert_parser()
-
-add_signature()
-
-send_email(to_addresses, cc_addresses, alert_id,
-           office_alert, service_degradation)
-
-os.remove("alert_info.txt")
