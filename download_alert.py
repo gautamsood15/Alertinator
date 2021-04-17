@@ -21,7 +21,6 @@ def get_inbox():
 		
 		email_message = email.message_from_bytes(b)           
 		
-#---------------------------------------------------------------------------------------------------------------------------------------
 	
 		if email_message['subject'] == 'Fwd: This is a test Email':    # check  for alert email from all thge unread email
 
@@ -29,9 +28,6 @@ def get_inbox():
 				#pass
 				#print("{}: {}".format(header,email_message[header]))
 				#email_data[header] = email_message[header]
-
-				
-				
 
 			for part in email_message.walk():                         # get the body of the mails
 				if part.get_content_type() == "text/plain":             # get body of mails if mail is text type
@@ -51,7 +47,13 @@ def get_inbox():
 
 
 
+
+
+def save_alert(my_message):
+	print("saving....")
+
 # ------------------------  Code Execution -------------------------------------------------
 
 my_inbox = get_inbox()
-print(my_inbox)
+save_alert(my_inbox)
+
