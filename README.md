@@ -6,7 +6,7 @@ Then extract the alert information from the service alert mail. After that, it c
 user friendly mail to clients of the specific project for which the service mail has arrived.
 
  
- ##Modules/Language Required for Project
+##Modules/Language Required for Project
 
 -> python 3.x -- language used to make the project
 -> autopep8   -- Formats code automatically to PEP8 style guide		[autopep8 -i file_name], [pip install autopep8 --user]
