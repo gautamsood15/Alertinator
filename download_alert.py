@@ -18,5 +18,4 @@ for num in search_data[0].split():
 	_, b = data[0]
 	mes_str = str(b)
 	print('msg_str')
-	email_message = email.mnessage_from_bytea(b)
-	
+	email_message = email.message_from_bytea(b)
