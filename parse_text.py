@@ -1,7 +1,6 @@
 
 import os
 import re
-import sys
 import win32com.client as client
 
 
@@ -15,14 +14,14 @@ def project_selection():
 
         for i, line in enumerate(file_content):
 
-            if i == 2:
-                if line == 'To:	IO.Hess.Messaging\n':
-                    to_addresses = 'gauty22@gmail.com; gauty22@hotmail.com'
-                    cc_addresses = 'shailsood15@gmail.com'
+            if i == 2:                                    
+                if line == 'To:	django.Messaging\n':                            # if the DL is of django projects
+                    to_addresses = 'gaasdasduty212122@gmail.com; aaaafff@hotmail.com'
+                    cc_addresses = 'abc@gmail.com'
 
-                if line == 'To:	Upfield_O365\n':
-                    to_addresses = 'gautamsood15@stu.upes.ac.in; gauty22@hotmail.com'
-                    cc_addresses = 'shailsood15@gmail.com'
+                if line == 'To:	Unchained_O365\n':                                 # if the DL is of unchained projects
+                    to_addresses = 'gasdas@ac.in; gasf424@hotmail.com'
+                    cc_addresses = 'sdfg1323@gmail.com'
 
                 else:
                     break
@@ -57,7 +56,7 @@ def alert_parser():
 
         for i, line in enumerate(file_content):
 
-            if i == 13:
+            if i == 13:                                                 # to get the alert type
                 if line == 'Exchange Online service alert\n':
                     is_office_alert = True
 
@@ -67,20 +66,20 @@ def alert_parser():
                 else:
                     is_office_alert = False
 
-            if re.search("^ID:", line):
+            if re.search("^ID:", line):                                 # to get the ID of the alert
                 alert_id = line
 
-            if x == 1:
+            if x == 1:                                                 # To get the service status
                 if line == 'Service Degradation\n':
                     is_service_degradation = True
                 else:
                     is_service_degradation = False
                 x = 0
 
-            if line == 'Status\n':
+            if line == 'Status\n':                                  
                 x = 1
 
-            if y == 1:
+            if y == 1:                                                  # to get the alert info main body from service alert
                 if line == 'Are you experiencing this issue?\n':
                     y = 0
 
@@ -120,17 +119,17 @@ def is_validated(office_alert, service_degradation):
 
     valid = True
 
-    if office_alert == False:
+    if office_alert == False:                          # check if the alert type is correct 
         print("False Alert\n")
         print("It is NOT an O365 Alert")
         valid = False
 
-    elif service_degradation == False:
+    elif service_degradation == False:                  # check if the alert is for service degradation
         print("False Alert\n")
         print("Status is NOT Service Degradation")
         valid = False
 
-    else:
+    else:                                               # If the alert is a valid alert 
         print("Valid Alert")
 
     return valid
@@ -141,27 +140,27 @@ def is_validated(office_alert, service_degradation):
 
 def send_email(to_addresses, cc_addresses, alert_id, office_alert, service_degradation):
 
-    outlook = client.Dispatch("Outlook.Application")
+    outlook = client.Dispatch("Outlook.Application")                   # connecting with outlook application
     message = outlook.CreateItem(0)
     message.Display()
 
-    message.To = to_addresses
+    message.To = to_addresses                                          # adding sender info in outlook
     message.CC = cc_addresses
 
-    message.Subject = alert_id + " - M365 Service Health Notification"
+    message.Subject = alert_id + " - M365 Service Health Notification"    # adding subject to outlook
 
-    with open('alert_info.txt') as alert_info:
+    with open('alert_info.txt') as alert_info:                          # adding body to outlook
 
         file_content = alert_info.read()
 
     message.HTMLBody = file_content
 
-    if is_validated(office_alert, service_degradation) == True:
+    if is_validated(office_alert, service_degradation) == True:        # check if the alert is valid, if yes only then send
         message.Save()
         message.Send()
 
     else:
-        print("No need to send alert ot client")
+        print("No need to send alert to client")
 
 
 # ------------------------  Code Execution -------------------------------------------------
