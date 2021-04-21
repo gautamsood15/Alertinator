@@ -11,7 +11,7 @@ attachments.
 
 
 
-Microsoft 365 suite service alert
+Exchange Online service alert
 
 Incident Information
 Title: Users having multiple issue related to email flow, links within email messages

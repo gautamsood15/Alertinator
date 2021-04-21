@@ -1,5 +1,6 @@
 
 import os
+import re
 import win32com.client as client
 
 
@@ -15,8 +16,8 @@ def project_selection():
 
             if i == 2:
                 if line == 'To:	IO.Hess.Messaging\n':
-                	to_addresses = 'gauty22@gmail.com; gauty22@hotmail.com'
-                	cc_addresses = 'shailsood15@gmail.com'
+                    to_addresses = 'gauty22@gmail.com; gauty22@hotmail.com'
+                    cc_addresses = 'shailsood15@gmail.com'
 
                 if line == 'To:	Upfield_O365\n':
                     to_addresses = 'gautamsood15@stu.upes.ac.in; gauty22@hotmail.com'
@@ -33,7 +34,8 @@ def project_selection():
 def add_header():
 
     alert_info = open('alert_info.txt', 'a')
-    alert_info.write('<br/><h2 style="color:blue;margin-left:400px;">Microsoft Service Degradation - Alert</h2><br/><br/><br/>')
+    alert_info.write(
+        '<br/><h2 style="color:blue;margin-left:400px;">Microsoft Service Degradation - Alert</h2><br/><br/><br/>')
     alert_info.close()
 
     return
@@ -42,6 +44,9 @@ def add_header():
 # retrieving message from service alert
 
 def alert_parser():
+
+    x = 0
+    y = 0
 
     with open('service_alert.txt') as input_file:
 
@@ -52,23 +57,38 @@ def alert_parser():
         for i, line in enumerate(file_content):
 
             if i == 13:
-                if line == 'Microsoft 365 suite service alert\n':
+                if line == 'Exchange Online service alert\n':
                     is_office_alert = True
+
+                elif line == 'Microsoft Teams service alert\n':
+                    is_office_alert = True
+
                 else:
                     is_office_alert = False
 
-            if i == 20:
+            if re.search("^ID:", line):
+                alert_id = line
+
+            if x == 1:
                 if line == 'Service Degradation\n':
                     is_service_degradation = True
                 else:
                     is_service_degradation = False
+                x = 0
 
-            if i == 18:
-                alert_id = line
+            if line == 'Status\n':
+                x = 1
 
-            if 34 > i > 21:
-                with open('alert_info.txt', 'a') as alert_info:
-                    alert_info.write('&emsp;&emsp;'+line+'<br/><br/>')
+            if y == 1:
+                if line == 'Are you experiencing this issue?\n':
+                    y = 0
+
+                else:
+                    with open('alert_info.txt', 'a') as alert_info:
+                        alert_info.write('&emsp;&emsp;'+line+'<br/><br/>')
+
+            if line == 'Details\n':
+                y = 1
 
     # delete service alert
 
@@ -84,7 +104,8 @@ def add_signature():
     with open('alert_info.txt', 'a') as alert_info:
 
         alert_info.write('<br/><br/>')
-        alert_info.write('<div><img src="https://www.crwflags.com/fotw/images/u/us$accnt.gif" align="left" width="180" height="80">')
+        alert_info.write(
+            '<div><img src="https://www.crwflags.com/fotw/images/u/us$accnt.gif" align="left" width="180" height="80">')
         alert_info.write('&ensp;Thanks and Regards,<br/>')
         alert_info.write('&ensp;Gautam Sood,<br/>')
         alert_info.write('&ensp;Messaging Team,<br/>')
@@ -116,12 +137,6 @@ def is_validated(office_alert, service_degradation):
     return valid
 
 
-
-
-
-
-
-
 # Send email to the clients
 
 
@@ -129,21 +144,18 @@ def send_email(to_addresses, cc_addresses, alert_id, office_alert, service_degra
 
     outlook = client.Dispatch("Outlook.Application")
     message = outlook.CreateItem(0)
-    # message.Display()
+    message.Display()
 
     message.To = to_addresses
     message.CC = cc_addresses
 
     message.Subject = alert_id + " - M365 Service Health Notification"
 
-
-
     with open('alert_info.txt') as alert_info:
 
-    	file_content = alert_info.read()
+        file_content = alert_info.read()
 
     message.HTMLBody = file_content
-
 
     if is_validated(office_alert, service_degradation) == True:
         message.Save()
@@ -164,6 +176,7 @@ office_alert, service_degradation, alert_id = alert_parser()
 
 add_signature()
 
-send_email(to_addresses, cc_addresses, alert_id, office_alert, service_degradation)
+send_email(to_addresses, cc_addresses, alert_id,
+           office_alert, service_degradation)
 
-# os.remove("alert_info.txt")
+os.remove("alert_info.txt")
