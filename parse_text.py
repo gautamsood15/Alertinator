@@ -1,6 +1,7 @@
 
 import os
 import re
+import sys
 import win32com.client as client
 
 
@@ -92,7 +93,7 @@ def alert_parser():
 
     # delete service alert
 
-    #os.remove("service_alert.txt")
+    os.remove("service_alert.txt")
 
     return is_office_alert, is_service_degradation, alert_id
 
@@ -120,13 +121,11 @@ def is_validated(office_alert, service_degradation):
     valid = True
 
     if office_alert == False:
-        os.remove("alert_info.txt")
         print("False Alert\n")
         print("It is NOT an O365 Alert")
         valid = False
 
     elif service_degradation == False:
-        os.remove("alert_info.txt")
         print("False Alert\n")
         print("Status is NOT Service Degradation")
         valid = False
