@@ -33,7 +33,7 @@ def project_selection():
 def add_header():
 
     alert_info = open('alert_info.txt', 'a')
-    alert_info.write('\n                                                        Microsoft Service Degradation - Alert\n\n\n')
+    alert_info.write('<br/><h2 style="color:blue;text-align:center;">                                                Microsoft Service Degradation - Alert</h2><br/><br/><br/>')
     alert_info.close()
 
     return
@@ -66,13 +66,13 @@ def alert_parser():
             if i == 18:
                 alert_id = line
 
-            if 44 > i > 21:
+            if 34 > i > 21:
                 with open('alert_info.txt', 'a') as alert_info:
-                    alert_info.write('\t'+line)
+                    alert_info.write(line+'<br/><br/>')
 
     # delete service alert
 
-    os.remove("service_alert.txt")
+    #os.remove("service_alert.txt")
 
     return is_office_alert, is_service_degradation, alert_id
 
@@ -83,12 +83,12 @@ def add_signature():
 
     with open('alert_info.txt', 'a') as alert_info:
 
-        alert_info.write('\n\n')
-        alert_info.write('Thanks and Regards,\n')
-        alert_info.write('Gautam Sood,\n')
-        alert_info.write('Messaging Team\n')
-        alert_info.write('Accenture Services Private Limited\n')
-        alert_info.write('Email: gautam.a.sood@accenture.com\n')
+        alert_info.write('<br/><br/>')
+        alert_info.write('Thanks and Regards,<br/>')
+        alert_info.write('Gautam Sood,<br/>')
+        alert_info.write('Messaging Team<br/>')
+        alert_info.write('Accenture Services Private Limited<br/>')
+        alert_info.write('Email: gautam.a.sood@accenture.com<br/>')
 
 
 #  validate for messaging team to send to client
@@ -140,7 +140,7 @@ def send_email(to_addresses, cc_addresses, alert_id):
     	file_content = alert_info.read()
     	print(file_content)
 
-    message.body = file_content
+    message.HTMLBody = file_content
 
 
 
