@@ -33,8 +33,7 @@ def project_selection():
 def add_header():
 
     alert_info = open('alert_info.txt', 'a')
-    alert_info.write(
-        '\n                                     Microsoft Service Degradation - Alert\n\n\n')
+    alert_info.write('\n                                                        Microsoft Service Degradation - Alert\n\n\n')
     alert_info.close()
 
     return
@@ -73,7 +72,7 @@ def alert_parser():
 
     # delete service alert
 
-    # os.remove("service_alert.txt")
+    os.remove("service_alert.txt")
 
     return is_office_alert, is_service_degradation, alert_id
 
@@ -95,9 +94,7 @@ def add_signature():
 #  validate for messaging team to send to client
 
 
-def is_validated():
-
-    office_alert, service_degradation, dummy_alert_id = alert_parser()
+def is_validated(office_alert, service_degradation):
 
     if office_alert == False:
         os.remove("alert_info.txt")
@@ -125,7 +122,7 @@ def is_validated():
 # Send email to the clients
 
 
-def send_email(to_addresses, cc_addresses):
+def send_email(to_addresses, cc_addresses, alert_id):
 
     outlook = client.Dispatch("Outlook.Application")
     message = outlook.CreateItem(0)
@@ -134,7 +131,6 @@ def send_email(to_addresses, cc_addresses):
     message.To = to_addresses
     message.CC = cc_addresses
 
-    dummy_office_alert, dummy_service_degradation, alert_id = alert_parser()
     message.Subject = alert_id + " - M365 Service Health Notification"
 
 
@@ -144,16 +140,7 @@ def send_email(to_addresses, cc_addresses):
     	file_content = alert_info.read()
     	print(file_content)
 
-
-
     message.body = file_content
-
-
-
-
-
-
-
 
 
 
@@ -166,10 +153,14 @@ def send_email(to_addresses, cc_addresses):
 
 to_addresses, cc_addresses = project_selection()
 
-
 add_header()
-is_validated()
+
+office_alert, service_degradation, alert_id = alert_parser()
+
+is_validated(office_alert, service_degradation)
+
 add_signature()
 
+send_email(to_addresses, cc_addresses, alert_id)
 
-send_email(to_addresses, cc_addresses)
+os.remove("alert_info.txt")
