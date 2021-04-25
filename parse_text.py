@@ -1,6 +1,6 @@
 
 import os
-
+import win32com.client as client
 
 # adding header to the alert info 
 
@@ -31,6 +31,9 @@ with open('service_alert.txt') as input_file:
 				is_service_degradation = True 
 			else:
 				is_service_degradation = False
+
+		if i == 18:
+			alert_id = line
 
 
 		if 44 > i > 21:
@@ -85,6 +88,19 @@ is_validated(is_office_alert, is_service_degradation)
 
 
 
+# Send email script 
 
+outlook = client.Dispatch("Outlook.Application")
+message = outlook.CreateItem(0)
+message.Display()
+
+message.To = "shailsood15@gmail.com; gauty22@gmail.com"
+message.CC = "gauty22@hotmail.com; gauty@gautamsood.in"
+
+message.Subject = alert_id + " - M365 Service Health Notification"
+message.body = "This is a test case"
+
+message.Save()
+message.Send()
 
 
