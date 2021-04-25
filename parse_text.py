@@ -62,7 +62,7 @@ alert_info.close()
 
 # Check if the service alert is valid for messaging team to send to client
 
-def is_validated(self, office_alert, service_degradation):
+def is_validated(office_alert, service_degradation):
 	
 	if office_alert == False:
 		os.remove("alert_info.txt")
