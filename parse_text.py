@@ -1,8 +1,8 @@
 # copy Alert info data from the text file to another file 
+import os
 
 
-
-with open('Test Email.txt') as input_file:
+with open('service_alert.txt') as input_file:
 	
 	file_content = input_file.readlines()
 
@@ -27,6 +27,8 @@ with open('Test Email.txt') as input_file:
 
 	print(is_service_degradation)
 	print(is_office_alert)
+
+os.remove("service_alert.txt")
 
 
 
