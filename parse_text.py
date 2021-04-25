@@ -9,7 +9,7 @@ alert_info.write('                                     Microsoft Service Degrada
 alert_info.close()
 
 
-# retrieving data from service alert
+# retrieving message from service alert
 
 
 with open('service_alert.txt') as input_file:
@@ -35,12 +35,7 @@ with open('service_alert.txt') as input_file:
 
 		if 44 > i > 21:
 			with open('alert_info.txt', 'a') as alert_info:
-				alert_info.write(line)
-
-# vairables to check if the service alert is valid for messaging team to send to client
-
-	print(is_service_degradation)
-	print(is_office_alert)
+				alert_info.write('\t'+line)
 
 
 # delete service alert 
@@ -61,5 +56,35 @@ alert_info.write('Accenture Services Private Limited\n')
 alert_info.write('Email: gautam.a.sood@accenture.com\n')
 
 alert_info.close()
+
+
+
+
+# Check if the service alert is valid for messaging team to send to client
+
+def is_validated(self, office_alert, service_degradation):
+	
+	if office_alert == False:
+		os.remove("alert_info.txt")
+		print("False Alert\n")
+		print("It is NOT an O365 Alert")
+	
+	elif service_degradation == False:
+		os.remove("alert_info.txt")
+		print("False Alert\n")
+		
+		print("Status is NOT Service Degradation")
+
+	else:
+		print("Valid Alert")
+
+	return
+
+is_validated(is_office_alert, is_service_degradation)
+
+
+
+
+
 
 
