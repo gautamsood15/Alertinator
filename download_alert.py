@@ -13,7 +13,7 @@ _, search_data = mail.search(None, 'UNSEEN')
 
 for num in search_data[0].split():
 
-	_, data = mail.fetch(num, 'Test Test Test 1')
+	_, data = mail.fetch(num, '(RFC822)')
 	# print(data[0])
 	_, b = data[0]
 	mes_str = str(b)
