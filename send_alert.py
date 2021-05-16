@@ -14,14 +14,14 @@ def project_selection():
 
         for i, line in enumerate(file_content):
 
-            if i == 2:                                    
+            if re.search("^To:", line):                                    
                 if line == 'To:	django.Messaging\n':                            # if the DL is of django projects
-                    to_addresses = 'gauty22@gmail.com; gauty22@hotmail.com'
-                    cc_addresses = 'gauty22@gmail.com'
+                    to_addresses = 'gaas@gmail.com; gaas@gmail.com'
+                    cc_addresses = 'gaas@gmail.com'
 
                 if line == 'To:	Unchained_O365\n':                                 # if the DL is of unchained projects
-                    to_addresses = 'gasdas@ac.in; gasf424@hotmail.com'
-                    cc_addresses = 'gauty22@gmail.com'
+                    to_addresses = 'gaas@gmail.com; gaas@gmail.com'
+                    cc_addresses = 'gaas@gmail.com'
 
                 else:
                     break
@@ -56,15 +56,15 @@ def alert_parser():
 
         for i, line in enumerate(file_content):
 
-            if i == 13:                                                 # to get the alert type
-                if line == 'Exchange Online service alert\n':
-                    is_office_alert = True
+                                                             
+            if line == 'Exchange Online service alert\n':     # to get the alert type
+                is_office_alert = True
 
-                elif line == 'Microsoft Teams service alert\n':
-                    is_office_alert = True
+            elif line == 'Microsoft Teams service alert\n':
+                is_office_alert = True
 
-                else:
-                    is_office_alert = False
+            else:
+                is_office_alert = False
 
             if re.search("^ID:", line):                                 # to get the ID of the alert
                 alert_id = line

@@ -2,8 +2,8 @@ import imaplib
 import email
 
 host = 'imap.outlook.com'                  # mailbox information
-username = 'gauty22@hotmail.com'
-password = 'Gs220797'
+username = 'gaasda@hotmail.com'
+password = 'Gsasfasf'
 
 def get_inbox():
 
